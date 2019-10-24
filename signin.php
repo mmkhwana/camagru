@@ -1,6 +1,7 @@
 <?php
 // require header
 include "config/config.php";
+session_start();
 ?>
 <html>
     <body>
@@ -15,23 +16,47 @@ include "config/config.php";
                echo "Error: Empty Fields not allowed";
             }
             else{
-                $sql = "SELECT * FROM `users` WHERE user_email = '".$mailuser."';";
-                $res = $conn->query($sql);
+                $stmt = $conn->prepare("SELECT `user_id`,`user_name`, `user_pwd` FROM `users` WHERE user_email = :user_email");
+                $stmt->bindvalue(':user_email', $mailuser);
+                $stmt->execute();
+                $value = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                if (mysqli_num_rows($res) > 0)
+                if ($value == false)
                 {
-                    while ($row = mysqli_fetch_assoc($res)){
-                        $hashed = $row['user_pwd'];
-                        if (password_verify($password, $hashed))
-                        {
-                            echo "YES";
-                        }
-                        else{
-                            echo "NO";
-                        }
+                    echo "incorrect email/password";
+                }
+                else{
+                    $hashed = $value['user_pwd'];
+                    $pwdcheck = password_verify($password,$hashed);
+
+                    if ($pwdcheck){
+                        $_SESSION['userId'] = $value["user_id"];
+                        $_SESSION['username'] = $value["user_name"];
+                        header("Location: main.php");
+                    }
+                    else {
+                        echo "incorrect email/password";
                     }
                 }
             }
+            // else{
+            //     $sql = "SELECT * FROM `users` WHERE user_email = '".$mailuser."';";
+            //     $res = $conn->query($sql);
+
+            //     if (mysqli_num_rows($res) > 0)
+            //     {
+            //         while ($row = mysqli_fetch_assoc($res)){
+            //             $hashed = $row['user_pwd'];
+            //             if (password_verify($password, $hashed))
+            //             {
+            //                 echo "YES";
+            //             }
+            //             else{
+            //                 echo "NO";
+            //             }
+            //         }
+            //     }
+            // }
         }
         ?>
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method = "post">

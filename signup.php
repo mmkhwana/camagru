@@ -20,6 +20,13 @@ include "config/config.php";
                 {
                     echo "Invalid email address";
                 }
+                else if(!preg_match("/^[a-zA-Z0-9]*$/",$username))
+                {
+                     echo "invalid username";
+                }
+                else if(!preg_match('@[a-zA-Z0-9^\w]@',$password) && !strlen($password) < 8){
+                         echo "weak password";                    
+                }
                 else if($password !== $passwordconf)
                 {
                     echo "Passwords not the same";
