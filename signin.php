@@ -1,6 +1,6 @@
 <?php
 // require header
-include "config/config.php";
+include "config/database.php";
 session_start();
 ?>
 <html>
@@ -62,7 +62,8 @@ session_start();
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method = "post">
             <input type="text" name="user_email" placeholder = "email"><br>
             <input type="password" name="user_pwd" placeholder = "password"><br>
-            <button type="submit" name="signin-submit">SIGNIN</button>
+            <button type="submit" name="signin-submit">SIGNIN</button><br>
+            <a href="#">Forgert Password</a>
         </form>
     </body>
 </html>
