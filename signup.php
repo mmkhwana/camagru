@@ -44,7 +44,7 @@ include "config/database.php";
                  else if(!$upper || !$lower || !$number || !$specialChars || strlen($password) < 8) {
                      echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
                  }                    
-                 else if ($username && $email){
+                 else if ($username && $email && ($password == $passwordconf)){
 
                      // echo $username ;
                      // echo "usernaem ---<br>";
@@ -52,13 +52,14 @@ include "config/database.php";
                      //  echo "LOok here<br>";
                      try{
                      $verifymail = rand();
-                      echo "LOok here <br>";
-                     $sql = ("INSERT INTO `users` 
-                     VALUE (``,`user_name`,`user_mail`,`user_pwd`,`verify`,verify_conf)");
+                     $hashed = password_hash($password, PASSWORD_DEFAULT);
+                     // echo "LOok here <br>";
+                     $sql = "INSERT INTO `camagru`.`users` (`user_name`,`user_email`,`user_pwd`, `user_key`)
+                     VALUES ('".$username."', '".$email."', '".$hashed."', '".$verifymail."')";
                      $query = $conn->query($sql);
                      $messege = "
                          Confirm Your Email
-                         http://locahost/camagru/sigin.php?username=.&user_name&&verifymail
+                         http://localhost:8081/camagru/verify.php?email=".$email."&key=".$verifymail."
                      ";
                      mail($email,"Camagru confirm email",$messege,"FROM Camagru");
                      echo "Please check email to verify account";
@@ -67,16 +68,17 @@ include "config/database.php";
                      {
                          echo "not vertifed".$e->getMessage();
                      }
-                 }
+                }
                 else if($password !== $passwordconf)
                 {
                     echo "Passwords not the same";
                 }
                 else{
                     try{
+                    $verifymail = rand();
                     $hashed = password_hash($password, PASSWORD_DEFAULT);
-                    $sql = "INSERT INTO `users` (`user_name`,`user_email`,`user_pwd`)
-                    VALUES ('".$username."', '".$email."', '".$hashed."')";
+                    $sql = "INSERT INTO `camagru`.`users` (`user_name`,`user_email`,`user_pwd`, `user_key`)
+                    VALUES ('".$username."', '".$email."', '".$hashed."','".$verifymail."')";
                     $res = $conn->query($sql);
 
                     if (!$res)
@@ -94,10 +96,10 @@ include "config/database.php";
         ?>
         <div class="signupcontainer">
             <form class="signupform" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method = "post">
-            <input type="text" name="user_name" placeholder = "username"><br>
-            <input type="text" name="user_email" placeholder = "email"><br>
-            <input type="password" name="user_pwd" placeholder = "password"><br>
-            <input type="password" name="user_pwdconf" placeholder = "confirm password"><br>
+            <input type="text" name="user_name" placeholder = "username" require><br>
+            <input type="text" name="user_email" placeholder = "email" require><br>
+            <input type="password" name="user_pwd" placeholder = "password" require><br>
+            <input type="password" name="user_pwdconf" placeholder = "confirm password" require><br>
             <button type="submit" name="signup-submit">SIGNUP</button>
             <h4>Already have an account <a href="signin.php">Singin</a></h4>
             </form>

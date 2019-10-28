@@ -2,6 +2,6 @@
 //require "database.php";
 $servername = "localhost";
 $dbusername = "root";
-$dbpassword = "";
+$dbpassword = "Raspberry12";
 $dbname = "camagru";
 ?>
