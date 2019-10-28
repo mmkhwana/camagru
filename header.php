@@ -6,13 +6,8 @@
         <title>camagru</title>   
     </head>
     <header>
-        <div class="navbar">
-            <ul>
-                <li><a class="active" href="#">Home</a></li>
-                <li><a href="#">Search</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Login</a></li>
-            </ul> 
+    <div class="navbar">
+                <h1 class="active">CAMAGRU</h1> 
         </div>
     </header>
 </html>

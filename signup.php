@@ -1,5 +1,5 @@
 <?php
-// require header
+ require "header.php";
 include "config/database.php";
 ?>
 <html>
@@ -11,6 +11,11 @@ include "config/database.php";
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <title>camagru</title>   
     </head>
+    <!-- <header>
+        <div class="navbar">
+                <h1 class="active">CAMAGRU</h1> 
+        </div>
+    </header> -->
     <body>
         <?php
             if(isset($_POST['signup-submit']))
@@ -39,34 +44,32 @@ include "config/database.php";
                  else if(!$upper || !$lower || !$number || !$specialChars || strlen($password) < 8) {
                      echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
                  }                    
-                // }
-                // else if ($username && $email){
+                 else if ($username && $email){
 
-                //     // echo $username ;
-                //     // echo "usernaem ---<br>";
-                //     // echo $email;
-                //     //  echo "LOok here<br>";
-                //     try{
-                //     $verifymail = rand();
-                //      echo "LOok here <br>";
-                //     $sql = ("INSERT INTO `users` 
-                //     VALUE (``,`user_name`,`user_mail`,`user_pwd`,`verify`,verify_conf)");
-                //     $query = $conn->query($sql);
-                //     $messege = "
-                //         Confirm Your Email
-                //         http://locahost/camagru/sigin.php?username=.&user_name&&verifymail
-                //     ";
-                //     mail($email,"Camagru confirm email",$messege,"FROM Camagru");
-                //     echo "Please check email to verify account";
-                //     }
-                //     catch(PDOException $e)
-                //     {
-                //         echo "not vertifed".$e->getMessage();
-                //     }
-                // }
+                     // echo $username ;
+                     // echo "usernaem ---<br>";
+                     // echo $email;
+                     //  echo "LOok here<br>";
+                     try{
+                     $verifymail = rand();
+                      echo "LOok here <br>";
+                     $sql = ("INSERT INTO `users` 
+                     VALUE (``,`user_name`,`user_mail`,`user_pwd`,`verify`,verify_conf)");
+                     $query = $conn->query($sql);
+                     $messege = "
+                         Confirm Your Email
+                         http://locahost/camagru/sigin.php?username=.&user_name&&verifymail
+                     ";
+                     mail($email,"Camagru confirm email",$messege,"FROM Camagru");
+                     echo "Please check email to verify account";
+                     }
+                     catch(PDOException $e)
+                     {
+                         echo "not vertifed".$e->getMessage();
+                     }
+                 }
                 else if($password !== $passwordconf)
                 {
-                    // echo "LOok here 3<br>";
                     echo "Passwords not the same";
                 }
                 else{
@@ -97,8 +100,8 @@ include "config/database.php";
             <input type="password" name="user_pwdconf" placeholder = "confirm password"><br>
             <button type="submit" name="signup-submit">SIGNUP</button>
             <h4>Already have an account <a href="signin.php">Singin</a></h4>
-            </div>
-        </form>
+            </form>
+        </div>
     </body>
 </html>
 <?php

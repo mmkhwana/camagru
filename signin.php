@@ -1,5 +1,5 @@
 <?php
-// require header
+require "header.php";
 include "config/database.php";
 session_start();
 ?>
