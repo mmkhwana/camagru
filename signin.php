@@ -63,7 +63,7 @@ session_start();
             <input type="text" name="user_email" placeholder = "email" require><br>
             <input type="password" name="user_pwd" placeholder = "password" require><br>
             <button type="submit" name="signin-submit">SIGNIN</button><br>
-            <a href="#">Forgert Password</a>
+            <a href="forgetpassword.php">forget password</a>
         </form>
     </body>
 </html>

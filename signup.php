@@ -100,7 +100,8 @@ include "config/database.php";
             <input type="text" name="user_email" placeholder = "email" require><br>
             <input type="password" name="user_pwd" placeholder = "password" require><br>
             <input type="password" name="user_pwdconf" placeholder = "confirm password" require><br>
-            <button type="submit" name="signup-submit">SIGNUP</button>
+            <button type="submit" name="signup-submit">SIGNUP</button><br>
+            <a href="forgetpassword.php">forget password</a>
             <h4>Already have an account <a href="signin.php">Singin</a></h4>
             </form>
         </div>
