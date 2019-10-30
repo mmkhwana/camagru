@@ -6,25 +6,32 @@ require 'header.php';
         require 'config/setup.php';
         include "config/database.php";
         $usermail = $_POST['user_email'];
-        $userpwd = $_POST['user_pwd'];
+        //$userpwd; //= $_POST['user_pwd'];
         $userpwd_new = $_POST['user_pwd_new'];
         $userpwd_new_pwd = $_POST['user_pwd_new_pwd'];
+        $upper = preg_match('@[A-Z]@', $userpwd_new);
+        $lower = preg_match('@[a-z]@', $userpwd_new);
+        $number    = preg_match('@[0-9]@', $userpwd_new);
+        $specialChars = preg_match('@[^\w]@', $userpwd_new);
 
-        if (epmty($userpwd_new) || empty($userpwd_new_pwd) || empty($usermail))
+        if (empty($userpwd_new) || empty($userpwd_new_pwd) || empty($usermail))
         {
             echo "Empty fields";
         }
+        else if(!$upper || !$lower || !$number || !$specialChars || (strlen($userpwd_new) < 8)) {
+            echo 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.';
+        }
         else if ($usermail == $usermail)
         {
-            $stmt = $conn->prepare("SELECT `user_email` FROM `users` WHERE user_email = :user_email");
+            $stmt = $conn->prepare("SELECT `user_email`,`user_pwd` FROM `users` WHERE user_email = :user_email");
             $stmt->bindvalue(':user_email', $usermail);
             $stmt->execute();
             $value = $stmt->fetch(PDO::FETCH_ASSOC);
             $hashed = $value['user_pwd'];
-            $pwdcheck = password_verify($userpwd,$hashed);
-
+            $pwdcheck = password_verify($userpwd_new_pwd,$hashed);
+            echo "check1";
         }
-        else if ($pwdcheck == $userpwd_new)
+        if ($pwdcheck)
         {
             echo "Cant use old password";
         }
@@ -34,20 +41,21 @@ require 'header.php';
                 $hashed = password_hash($userpwd_new_pwd, PASSWORD_DEFAULT);
                 $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
                 $stmt = $conn->prepare("SELECT `user_pwd` FROM `users` WHERE user_email = :user_email");
-                $stmt->bindValue(':user_email', $email);
+                $stmt->bindValue(':user_email', $usermail);
                 $stmt->execute();
                 $value = $stmt->fetch(PDO::FETCH_ASSOC);
-                if ($value === false)
+                if ($value == false)
                 {
                     echo "Error";
                 }
                 else{
+                    $userpwd = $value['user_pwd'];
                     $hashed = password_hash($userpwd_new_pwd, PASSWORD_DEFAULT);
                     $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
-                    $stmt_1 = $conn->prepare("UPDATE `users` SET user_pwd = 'user_pwd_new_pwd' WHERE user_email = :user_email");
+                    $stmt_1 = $conn->prepare("UPDATE `users` SET user_pwd = '$hashed' WHERE user_email = :user_email");
                     $stmt_1->bindParam(':user_email', $usermail);
                     $stmt_1->execute();
-        
+                    echo "done";
                 }
             }
             catch(PDOException $e){
@@ -55,10 +63,10 @@ require 'header.php';
             }
             try{
                 $verifymail = rand();
-                $hashed = password_hash($userpwd_new_pwd, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO `camagru`.`users` (`user_name`,`user_email`,`user_pwd`, `user_key`)
-                VALUES ('".$username."', '".$usermail."', '".$hashed."', '".$verifymail."')";
-                $query = $conn->query($sql);
+               // $hashed = password_hash($userpwd_new_pwd, PASSWORD_DEFAULT);
+                // $sql = "INSERT INTO `camagru`.`users` (`user_name`,`user_email`,`user_pwd`, `user_key`)
+                // VALUES ('".$username."', '".$usermail."', '".$hashed."', '".$verifymail."')";
+                // $query = $conn->query($sql);
                 $messege = "
                     Login with new passsword
                     http://localhost:8081/camagru/verify.php?email=".$usermail."&key=".$verifymail."

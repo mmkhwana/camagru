@@ -20,7 +20,7 @@ try{
     $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
     $sql = "CREATE TABLE IF NOT EXISTS users(
         user_id         INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-        user_name       TINYTEXT NOT NULL,
+        user_name       TINYTEXT NOT NULL UNIQUE,
         user_email      TINYTEXT NOT NULL,
         user_pwd        LONGTEXT NOT NULL,
         user_key        LONGTEXT NOT NULL,
