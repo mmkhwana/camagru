@@ -68,29 +68,45 @@ include "config/database.php";
                      {
                          echo "not vertifed".$e->getMessage();
                      }
+                     try{
+                        $verifymail = rand();
+                        $hashed = password_hash($password, PASSWORD_DEFAULT);
+                        $sql = "INSERT INTO `camagru`.`users` (`user_name`,`user_email`,`user_pwd`, `user_key`)
+                        VALUES ('".$username."', '".$email."', '".$hashed."','".$verifymail."')";
+                        $res = $conn->query($sql);
+    
+                        if (!$res)
+                            print_r ($conn->errorInfo());
+                        else
+                            echo "User Registered";
+                        }
+                        catch(PDOException $e)
+                        {
+                             echo " hashing    ".$e->getMessage();
+                        }
                 }
                 else if($password !== $passwordconf)
                 {
                     echo "Passwords not the same";
                 }
-                else{
-                    try{
-                    $verifymail = rand();
-                    $hashed = password_hash($password, PASSWORD_DEFAULT);
-                    $sql = "INSERT INTO `camagru`.`users` (`user_name`,`user_email`,`user_pwd`, `user_key`)
-                    VALUES ('".$username."', '".$email."', '".$hashed."','".$verifymail."')";
-                    $res = $conn->query($sql);
+                // else{
+                //     try{
+                //     $verifymail = rand();
+                //     $hashed = password_hash($password, PASSWORD_DEFAULT);
+                //     $sql = "INSERT INTO `camagru`.`users` (`user_name`,`user_email`,`user_pwd`, `user_key`)
+                //     VALUES ('".$username."', '".$email."', '".$hashed."','".$verifymail."')";
+                //     $res = $conn->query($sql);
 
-                    if (!$res)
-                        print_r ($conn->errorInfo());
-                    else
-                        echo "User Registered";
-                    }
-                    catch(PDOException $e)
-                    {
-                         echo " hashing    ".$e->getMessage();
-                    }
-                }
+                //     if (!$res)
+                //         print_r ($conn->errorInfo());
+                //     else
+                //         echo "User Registered";
+                //     }
+                //     catch(PDOException $e)
+                //     {
+                //          echo " hashing    ".$e->getMessage();
+                //     }
+                // }
             }
 
         ?>

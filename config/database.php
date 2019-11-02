@@ -21,6 +21,11 @@ try{
     $sql = "CREATE TABLE IF NOT EXISTS users(
         user_id         INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
         user_name       TINYTEXT NOT NULL,
+        firstnane       TINYTEXT NULL,
+        lastname        TINYTEXT NULL,
+        country         TINYTEXT NULL,
+        city            TINYTEXT NULL,
+        about_me        VARCHAR(140) NULL,
         user_email      TINYTEXT NOT NULL,
         user_pwd        LONGTEXT NOT NULL,
         user_key        LONGTEXT NOT NULL,
@@ -30,7 +35,7 @@ try{
      // use exc() because no results are returned
      $conn->exec($sql);
      
-     echo "Table user created";
+     //echo "Table user created";
     }
 catch(PDOException $e)
     {
