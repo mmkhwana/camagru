@@ -44,8 +44,8 @@ if (isset($_POST['update']))
         <h2>EDIT USER PROFILE</h2>
         <form  method = "post">
             <input type="text" name="user_name" placeholder = "username" value ="<?php  if (isset($_SESSION['user_name'])) echo $_SESSION['user_name'];?>" require><br>
-            <input type="text" name="firstname" placeholder = "firstname" require><br>
-            <input type="text" name="lastname" placeholder = "lastname" require><br>
+            <input type="text" name="firstname" placeholder = "firstname" value ="<?php  if (isset($_SESSION['firstname'])) echo $_SESSION['firstname'];?>" require><br>
+            <input type="text" name="lastname" placeholder = "lastname" value ="<?php  if (isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?>" require><br>
             <input type="text" name="user_email" placeholder = "useremail" value ="<?php if (isset($_SESSION['user_email'])) echo $_SESSION['user_email'];?>" require><br>
             <label for="country">Country</label><br>
             <select id="country" name="country">
@@ -60,7 +60,7 @@ if (isset($_POST['update']))
                     <option value="cape_town">CAPE TOWN</option>
             </select><br>
             <label for="about">About Me</label><br>
-                <textarea name="about_me" placeholder="Write something.." style="height:200px"></textarea><br>
+                <textarea name="about_me" placeholder="Write something.." value ="<?php  if (isset($_SESSION['about_me'])) echo $_SESSION['about_me'];?>" style="height:200px"></textarea><br>
             <button type="submit" name="update">UPDATE</button><br>
         </form>
         <script type = "text/javascript" src ="useredit.js">
