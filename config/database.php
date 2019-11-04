@@ -4,7 +4,7 @@ try {
     $conn = new PDO("mysql:host=$servername", $dbusername, $dbpassword);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // echo "Connected";
+    //  echo "Connected";
     // creat database
     $dbase = "CREATE DATABASE IF NOT EXISTS camagru";
     $conn->exec($dbase);
@@ -21,7 +21,7 @@ try{
     $sql = "CREATE TABLE IF NOT EXISTS users(
         user_id         INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
         user_name       TINYTEXT NOT NULL,
-        firstnane       TINYTEXT NULL,
+        firstname       TINYTEXT NULL,
         lastname        TINYTEXT NULL,
         country         TINYTEXT NULL,
         city            TINYTEXT NULL,

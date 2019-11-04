@@ -55,7 +55,7 @@ require 'header.php';
                     $stmt_1 = $conn->prepare("UPDATE `users` SET user_pwd = '$hashed' WHERE user_email = :user_email");
                     $stmt_1->bindParam(':user_email', $usermail);
                     $stmt_1->execute();
-                    echo "done";
+                    // echo "done";
                 }
             }
             catch(PDOException $e){

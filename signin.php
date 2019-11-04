@@ -16,7 +16,7 @@ session_start();
                echo "Error: Empty Fields not allowed";
             }
             else{
-                $stmt = $conn->prepare("SELECT `user_id`,`user_name`, `user_pwd` FROM `users` WHERE user_email = :user_email");
+                $stmt = $conn->prepare("SELECT `*` FROM `users` WHERE user_email = :user_email");
                 $stmt->bindvalue(':user_email', $mailuser);
                 $stmt->execute();
                 $value = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -30,8 +30,14 @@ session_start();
                     $pwdcheck = password_verify($password,$hashed);
 
                     if ($pwdcheck){
-                        $_SESSION['userId'] = $value["user_id"];
-                        $_SESSION['username'] = $value["user_name"];
+                        $_SESSION['user_id'] = $value["user_id"];
+                        $_SESSION['user_name'] = $value["user_name"];
+                        $_SESSION['user_email'] = $value["user_email"];
+                        $_SESSION['firstname'] = $value["firstname"];
+                        $_SESSION['lastname'] = $value["lastname"];
+                        $_SESSION['country'] = $value["country"];
+                        $_SESSION['city'] = $value["city"];
+                        $_SESSION['about_me'] = $value["about_me"];
                         header("Location: main.php");
                     }
                     else {
