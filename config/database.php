@@ -41,5 +41,23 @@ catch(PDOException $e)
     {
         echo  $sql."<br>".$e->getMessage();
     }
+try{
+    //create table
+    $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+    $sqll = "CREATE TABLE IF NOT EXISTS images(
+            img_id          INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+            img_name        VARCHAR(200) NOT NULL,
+            img_dir         VARCHAR(300) NULL
+            
+        )";
+         // use exc() because no results are returned
+         $conn->exec($sqll);
+         
+         //echo "Table user created";
+        }
+    catch(PDOException $e)
+        {
+            echo  $sqll."<br>".$e->getMessage();
+        }
  //   $conn = null;           
 ?>

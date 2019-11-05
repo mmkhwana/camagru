@@ -16,14 +16,15 @@ session_start();
                echo "Error: Empty Fields not allowed";
             }
             else{
+                //$verify = 1;
                 $stmt = $conn->prepare("SELECT `*` FROM `users` WHERE user_email = :user_email");
                 $stmt->bindvalue(':user_email', $mailuser);
+                //$stmt->bindvalue(':verify_config', $verify);
                 $stmt->execute();
                 $value = $stmt->fetch(PDO::FETCH_ASSOC);
-
                 if ($value == false)
                 {
-                    echo "incorrect email/password";
+                    echo "incorrect email/ Account not active";
                 }
                 else{
                     $hashed = $value['user_pwd'];

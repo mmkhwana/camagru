@@ -2,8 +2,6 @@
 
 require "header.php";
 require "config/database.php";
-require "models/functions.php";
-
 session_start();
 $userdata = NULL;
 if (isset($_POST['update']))
@@ -39,9 +37,27 @@ if (isset($_POST['update']))
 //         }
  ?>
 <html>
-    <body>
-        <i class="fas fa-user"></i>
+<div class="container">
         <h2>EDIT USER PROFILE</h2>
+            <div class="profile-bio">
+                <p value ="<?php  if (isset($_SESSION['about_me'])) echo $_SESSION['about_me'];?>"><span class="profile-real-name"></span></p>
+            </div>
+		<div class="profile">
+			<div class="profile-image">
+				<img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">
+			</div>
+			<div class="profile-user-settings">
+				<h1 class="profile-user-name" value ="<?php  if (isset($_SESSION['user_name'])) echo $_SESSION['user_name'];?>"></h1>
+			</div>
+			
+		</div>
+		<!-- End of profile section -->
+</div>
+	<!-- End of container -->
+
+</header>
+
+    <body>
         <form  method = "post">
             <input type="text" name="user_name" placeholder = "username" value ="<?php  if (isset($_SESSION['user_name'])) echo $_SESSION['user_name'];?>" require><br>
             <input type="text" name="firstname" placeholder = "firstname" value ="<?php  if (isset($_SESSION['firstname'])) echo $_SESSION['firstname'];?>" require><br>

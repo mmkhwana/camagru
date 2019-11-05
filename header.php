@@ -9,7 +9,7 @@
     </head>
     <header>
     <div class="navbar">
-                <h1 class="active">CAMAGRU</h1> 
+                <h1 class="active" href = "main.php">CAMAGRU</h1>
         </div>
     </header>
 </html>
