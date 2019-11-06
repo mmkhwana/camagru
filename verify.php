@@ -1,4 +1,4 @@
-`z<?php
+<?php
     if (isset($_GET['key']) && isset($_GET['email']))
     {
          require 'config/setup.php';

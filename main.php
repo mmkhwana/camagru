@@ -27,5 +27,10 @@ echo "Welcome ".$_SESSION['user_name']. "<br/>";
                 </div> 
             </div>
         </div>
+        <video autoplay id = "play"></video>
+        <button type="button" id = "capture">capture</button>
+        <canvas width = "400" height = "400" id="main"></canvas>
+        <script src = "camera.js"></script>
+            
     </body>
 </html>

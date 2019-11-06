@@ -1,5 +1,6 @@
 <?php
 require 'header.php';
+require 'config/database.php';
     if (isset($_POST['Password-submit']))
     {
         echo "check";
@@ -29,7 +30,7 @@ require 'header.php';
             $value = $stmt->fetch(PDO::FETCH_ASSOC);
             $hashed = $value['user_pwd'];
             $pwdcheck = password_verify($userpwd_new_pwd,$hashed);
-            echo "check1";
+            // echo "check1";
         }
         if ($pwdcheck)
         {
@@ -39,7 +40,7 @@ require 'header.php';
         {
             try{
                 $hashed = password_hash($userpwd_new_pwd, PASSWORD_DEFAULT);
-                $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+                // $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
                 $stmt = $conn->prepare("SELECT `user_pwd` FROM `users` WHERE user_email = :user_email");
                 $stmt->bindValue(':user_email', $usermail);
                 $stmt->execute();
@@ -51,7 +52,7 @@ require 'header.php';
                 else{
                     $userpwd = $value['user_pwd'];
                     $hashed = password_hash($userpwd_new_pwd, PASSWORD_DEFAULT);
-                    $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+                    // $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
                     $stmt_1 = $conn->prepare("UPDATE `users` SET user_pwd = '$hashed' WHERE user_email = :user_email");
                     $stmt_1->bindParam(':user_email', $usermail);
                     $stmt_1->execute();

@@ -7,6 +7,7 @@
         $imagesize = $_FILES['picture']['size'];
         $imagetype = strtolower(pathinfo($image,PATHINFO_EXTENSION));
         $upload_dir = "uploads/";
+        $out=$upload_dir.$_FILES["picture"]["name"];
         $upload = 1;
          
         if (!!preg_match("/\.(gif|jpg|png)$/i",$imagetype))
@@ -44,11 +45,10 @@
             if (move_uploaded_file($_FILES["picture"]["tmp_name"], $upload_dir.$image))
             {
                 $sql = $conn->prepare("INSERT INTO `camagru`.`images` (`img_name`, `img_dir`)
-                VALUES ('".$image."', '".$tmp_dir."')");
+                VALUES (:img_name,:img_dir)");
                 $sql->bindValue(':img_name',$image);
-                $sql->bindValue(':img_dir',$tmp_dir);
+                $sql->bindValue(':img_dir',$out);
                 $sql->execute();
-                $out=$upload_dir.$_FILES["picture"]["name"];
                 echo "The file ". basename( $_FILES["picture"]["name"]). " has been uploaded.";
                 echo "<img src=$out >";
             } else
