@@ -10,7 +10,7 @@
         $out=$upload_dir.$_FILES["picture"]["name"];
         $upload = 1;
          
-        if (!!preg_match("/\.(gif|jpg|png)$/i",$imagetype))
+        if (!preg_match("/\.(gif|jpg|png|jpeg)$/i",$image))
         {
             echo "Sorry not an image";
             $upload = 0;

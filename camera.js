@@ -22,23 +22,22 @@ function feed() {
 }
 
 function save(){
-    var imgData = pic.toDataURL();
+    var imgData = pic.toDataURL('image/png');
     // console.log(imgData);
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             if (this.responseText == "success"){
-                alert("image saved!")
+                alert("Image Saved");
             } else {
                 alert("failed to save the image");
             }
             
         }
     };
-    xhttp.open("POST", "test.php", true);
+    xhttp.open("POST", "camupload.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("image="+imgData);
-    
 }
 feed();
