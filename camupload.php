@@ -1,14 +1,28 @@
 <?php
-    if (isset($_POST['image'])){
-        $upload_dir = "uploads/";
-        $filteredData = str_replace("data:image/png;base64,", "", $_POST['image']);
-        $image = str_replace(" ", "+", $filteredData);
-      /*  $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['image']));
-        // move_uploaded_file($_FILES["picture"]["tmp_name"], $upload_dir.$image);*/
-         file_put_contents('uploads/'.rand(0,50).'.png', $image);
-         
-         echo "success";
-         echo "<script>alert(".$_POST['image'].")</script>";
-    }else {
-        echo "failed";
+
+    function super_impose($src,$dest,$added)
+    {
+        $base = imagecreatefrompng($src);
+        $superpose= imagecreatefrompng($added);
+        list($width, $height) = getimagesize($src);
+        list($width_small, $height_small) = getimagesize($added);
+        imagecopyresampled($base , $superpose,  20, 20, 0, 0, 50, 50,$width_small, $height_small);
+        imagepng($base , $dest);
     }
+    super_impose("images/".$name.".png","images/".$name.".png",$_POST['image-name']);
+
+        if (isset($_POST['image']))
+    {
+        $filteredData = str_replace("data:image/png;base64,", "", $_POST['image']);
+        $filter = str_replace(" ", "+", $filteredData);
+        $image = base64_decode($filter);
+        file_put_contents('images/'.rand(0,100).'.png', $image);
+
+        echo "success";
+    }
+    else 
+    {
+        echo "failed";
+    }​
+
+?>

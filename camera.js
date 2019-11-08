@@ -1,15 +1,28 @@
 
 
 var  play = document.getElementById("play");
+var  stickers = document.getElementById("stickers");
+var  stickerName = document.getElementById("sticker-name");
 var  pic = document.getElementById("main");
+var  chose = document.querySelector('#choose');
 var  cap = document.getElementById("capture");
+var previewImage = document.querySelector("#chosen-img");
 
 cap.addEventListener("click", function(){
     var ctx = pic.getContext("2d");
     ctx.drawImage(play,0,0, 400, 400);
     save();
-})
-
+});
+chose.addEventListener('change', (event)=>{
+    var reader = new FileReader;
+    reader.addEventListener('load', (event)=>{
+       previewImage.src = reader.result;
+    });
+    reader.readAsDataURL(chose.files[0]);
+});
+stickers.addEventListener('change', (event)=>{
+    stickerName.value = stickers.value;
+});
 
 function feed() {
     // var player = document.getElementById("player");
@@ -38,6 +51,6 @@ function save(){
     };
     xhttp.open("POST", "camupload.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("image="+imgData);
+    xhttp.send("image="+imgData+"$image-name="+stickerName.value);
 }
 feed();
