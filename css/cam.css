@@ -51,8 +51,9 @@ canvas{
 .side
 {
     width: 40%;
-    height: 600px;
+    height: 80%;
     float: right;
+    overflow: scroll;
 }
 .div-sticker
 {
@@ -80,11 +81,13 @@ li img:hover
 }
 li.list-img
 {
+    width: 50%;
+    height: 80%;
     display: block;
     list-style-type: none;
 }
 .list-side
-{
+{   
     list-style-type: none;
     display: block;
     overflow: scroll;

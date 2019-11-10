@@ -1,0 +1,33 @@
+div.gallery {
+    border: 1px solid #ccc;
+    width: 350px;
+    height: 50%;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  div.gallery:hover {
+    border: 1px solid #777;
+    cursor: pointer;
+    box-shadow: 2px 8px 8px 2px  darkgrey;
+  }
+  
+  div.gallery img {
+    width: 100%;
+    height: 90%;
+  }
+  
+  div.desc {
+    padding: 15px;
+    text-align: center;
+  }
+.container
+{
+    width: 80%;
+    height: 70%;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}

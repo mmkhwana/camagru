@@ -5,37 +5,34 @@ echo "Welcome ".$_SESSION['user_name']. "<br/>";
 ?>
 <html>
     <header>
+        <link rel="stylesheet" type="text/css" href="css/gallery.css">
     <div class = "navbar">
+        <a href = "index.php">Gallery</a>
         <a href = "userprofile.php">Edit Profile</a>
         <a href = "signout.php">Sign Out</a>
     </div>
     </header>
     <body>
         <div class = "container">
-            feeds
             <div class = "main">
                 <div class = "div-sticker">
                     <select name="stickers" id="stickers">
                         <option value="none">Default</option>
-                        <option value="./stickers/grr.jpg">teethout</option>
-                        <option value="./stickers/laugh.jpg">laugh _emoji</option>
-                        <option value="./stickers/shades.png">shades</option>
-                        <option value="./stickers/loveyou.jpg">love_you</option>
-                        <option value="./stickers/tounge_out.jpg">tounge_out_emoji</option>
-                        <option value="./stickers/whatsapp.png">whatsapp</option>
-                        <option value="./stickers/wink.jpg">wink_emoji</option>
+                        <option value="laugh.jpg">laugh _emoji</option>
+                        <option value="loveyou.jpg">love_you</option>
+                        <option value="tounge_out.jpg">tounge_out_emoji</option>
+                        <option value="whatsapp.jpg">whatsapp</option>
                     </select>
                 </div>
                 <div class = "preview">
                     <video autoplay id = "play"></video>
                     <img id = 'chosen-img' width="250px" height="250px"/>
-                    <input type="hidden" id = 'sticker-name'/>
+                    <input type="text" id = 'sticker-name' style = "display:none" value = "none"/>
                     <canvas width = "400" height = "400" id="main"></canvas>
                 </div>
                 <div id = "Pick" class = "capture-btn">
-                    <input id = "choose" type="file" name="picture" accept = "*/images"/>
+                        <input id = "choose" type="file" name="picture" accept = "*/images"/>
                     <button type="button" id = "capture">capture</button>
-                    <button type="submit"  name="upload">Upload</button>
                 </div>
 
                 <!-- <form action="upload.php" method="post" enctype="multipart/form-data">
@@ -64,10 +61,10 @@ echo "Welcome ".$_SESSION['user_name']. "<br/>";
             </div>
             <div class = "side">
                 <?php
-                    session_start();
-                    $img_dir = "images/";
+//                    session_start();
+                    $img_dir = "uploads/";
                     $images = scandir($img_dir);
-                    $images = preg_grep('~^'.$_SESSION['username'].'.*\.png$~', $images);
+    //                $images = preg_grep('~^'.$_SESSION['username'].'.*\.png$~', $images);
                     $list = '<ul id = "list-side">';
                     foreach($images as $img) 	
                     { 
@@ -75,9 +72,9 @@ echo "Welcome ".$_SESSION['user_name']. "<br/>";
                         {
                             continue;
                         } 
-                        if (preg_match('/.png/',$img))
+                        if (preg_match("/\.(gif|jpg|png|jpeg)$/i",$img))
                         {				
-                            $list.='<li class="li-img"><img src=" '.$img_dir.$img.'" width="100" height="100" /></li>';
+                            $list.='<li id = "'.$img.'" class="li-img"><div class = "gallery"><img onmousedown="removeImage(event)" src=" '.$img_dir.$img.'" width="100" height="100" /></div></li>';
                         } 
                         else 
                         { 
