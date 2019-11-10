@@ -1,7 +1,7 @@
 div.gallery {
     border: 1px solid #ccc;
     width: 350px;
-    height: 50%;
+    height: 60%;
     margin: 0 auto;
     margin-top: 20px;
     border-radius: 10px;
@@ -21,6 +21,16 @@ div.gallery {
   
   div.desc {
     padding: 15px;
+    text-align: center;
+  }
+  div.like_ {
+    padding: 15px;
+    float: left;
+    text-align: center;
+  }
+  div.comment_ {
+    padding: 15px;
+    float: right;
     text-align: center;
   }
 .container

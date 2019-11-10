@@ -15,7 +15,7 @@ if (isset($_POST['update']))
     $usermail = $_SESSION['user_email'];
     try{
         $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);       
-        $sql = $conn->prepare("UPDATE `camagru`.`users` SET `user_name` = '$username', firstname = '$firstname', lastname = '$lastname', country = '$country', city = '$city', about_me = '$about'
+        $sql = $conn->prepare("UPDATE `camagru`.`users` SET `user_name` = '$username', firstname = '$firstname', lastname = '$lastname', country = '$country', city = '$city', about_me = '$about', user_mail =`$usermail`
          WHERE user_email = :user_email");
         $sql->bindParam(':user_email', $usermail);
         $sql->execute();

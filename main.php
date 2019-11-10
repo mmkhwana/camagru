@@ -6,6 +6,7 @@ echo "Welcome ".$_SESSION['user_name']. "<br/>";
 <html>
     <header>
         <link rel="stylesheet" type="text/css" href="css/gallery.css">
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <div class = "navbar">
         <a href = "index.php">Gallery</a>
         <a href = "userprofile.php">Edit Profile</a>
@@ -74,7 +75,18 @@ echo "Welcome ".$_SESSION['user_name']. "<br/>";
                         } 
                         if (preg_match("/\.(gif|jpg|png|jpeg)$/i",$img))
                         {				
-                            $list.='<li id = "'.$img.'" class="li-img"><div class = "gallery"><img onmousedown="removeImage(event)" src=" '.$img_dir.$img.'" width="100" height="100" /></div></li>';
+                            $list.='<li id = "'.$img.'" class="li-img"><div class = "gallery">
+                                        <img onmousedown="removeImage(event)" src=" '.$img_dir.$img.'" width="100" height="100" />
+                                            <form action = "like.php" method = "post">
+                                                <div class = "like_">
+                                                    <button type = "submit" name = "like"><i class="far fa-thumbs-up">like</i></button>
+                                                </div>
+                                            </form>
+                                            <div class = "comment_ ">
+                                                <button type = "button" type = "submit" name = "comment">comment</button>
+                                            </div>
+                                        </div>
+                                    </li>';
                         } 
                         else 
                         { 
