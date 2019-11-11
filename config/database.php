@@ -25,7 +25,6 @@ try{
         lastname        TINYTEXT NULL,
         country         TINYTEXT NULL,
         city            TINYTEXT NULL,
-        about_me        VARCHAR(140) NULL,
         user_email      TINYTEXT NOT NULL,
         user_pwd        LONGTEXT NOT NULL,
         user_key        LONGTEXT NOT NULL,

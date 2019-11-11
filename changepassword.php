@@ -1,13 +1,16 @@
 <?php
 require 'header.php';
 session_start();
+if (!$_SESSION['user_name'] && !$_SESSION['user_id'] && !$_SESSION['user_email'] )
+{
+    header('Location:index.php');
+}
     if (isset($_POST['Password-submit']))
     {
-        echo "in";
         // print_r($_SESSION);
         if (isset($_SESSION['user_email']))
         {
-             echo "check";
+        
             require 'config/setup.php';
             include "config/database.php";
             $userpwd_new = $_POST['user_pwd_new'];
@@ -27,6 +30,10 @@ session_start();
             if ($pwdcheck)
             {
                 echo "Cant use old password";
+            }
+            if ($userpwd_new_pwd != $userpwd_new)
+            {
+                echo "Pasword dont match";
             }
             else
             {
@@ -61,8 +68,8 @@ session_start();
 <html>
     <h3>Change Password</h3>
     <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method = "post">
-        <input type="password" name="user_pwd_new" placeholder = "New Password" require><br>
-        <input type="password" name="user_pwd_new_pwd" placeholder = "Confirm password" require><br>
+        <input type="password" name="user_pwd_new" placeholder = "New Password" pattern="[A-Za-z]{3}" title="Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character." required><br>
+        <input type="password" name="user_pwd_new_pwd" placeholder = "Confirm password" required pattern="[A-Za-z]{3}" title="Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character."><br>
         <button type="submit" name="Password-submit">Submit</button><br>
     </form>
 </html>

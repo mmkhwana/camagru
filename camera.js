@@ -16,7 +16,7 @@ cap.addEventListener("click", function(){
         save();
     }
     else
-        alert("Fuck off! Asshole");
+        alert("Please insert sticker");
 });
 chose.addEventListener('change', (event)=>{
     var reader = new FileReader;

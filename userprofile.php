@@ -3,6 +3,10 @@
 require "header.php";
 require "config/database.php";
 session_start();
+if (!$_SESSION['user_name'] && !$_SESSION['user_id'] && !$_SESSION['user_email'] )
+{
+    header('Location:index.php');
+}
 $userdata = NULL;
 if (isset($_POST['update']))
 {
@@ -11,7 +15,6 @@ if (isset($_POST['update']))
     $lastname   = $_POST['lastname'];
     $country    = $_POST['country'];
     $city       = $_POST['city']; 
-    $about      = $_POST['about_me'];
     $usermail = $_SESSION['user_email'];
     try{
         $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);       
@@ -23,7 +26,13 @@ if (isset($_POST['update']))
         if (!$sql)
             print_r ($conn->errorInfo());
         else
-            echo "Profile Updated";
+        {
+            // echo "executedd";
+           // if (isset($_POST['check']) && ($_POST['check'] == 'Yes'))
+           // {
+                echo "Profile Updated";
+           // }
+        }
     }
     catch(PDOException $e)
     {
@@ -38,14 +47,29 @@ if (isset($_POST['update']))
 //         }
  ?>
 <html>
+<header>
+        <link rel="stylesheet" type="text/css" href="css/gallery.css">
+    <div class = "navbar">
+        <a href = "index.php">Gallery</a>
+        <!-- <a href = "userprofile.php">Edit Profile</a> -->
+        <a href = "signout.php">Sign Out</a>
+    </div>
+    </header>
     <body>
         <h2>Edit Profile</h2>
+         
+         <label class="switch">
+            <form method = "post">
+                <h3>Turn on to get notification  <input type="checkbox" name = "check" value = "Yes"></h3>
+                <span class="slider round"></span>
+            </form>
+        </label>
         <h5><a href = "changepassword.php">change password</a></h5>
         <form  method = "post">
-            <input type="text" name="user_name" placeholder = "username" value ="<?php  if (isset($_SESSION['user_name'])) echo $_SESSION['user_name'];?>" require><br>
-            <input type="text" name="firstname" placeholder = "firstname" value ="<?php  if (isset($_SESSION['firstname'])) echo $_SESSION['firstname'];?>" require><br>
-            <input type="text" name="lastname" placeholder = "lastname" value ="<?php  if (isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?>" require><br>
-            <input type="text" name="user_email" placeholder = "useremail" value ="<?php if (isset($_SESSION['user_email'])) echo $_SESSION['user_email'];?>" require><br>
+            <input type="text" name="user_name" placeholder = "username" value ="<?php  if (isset($_SESSION['user_name'])) echo $_SESSION['user_name'];?>" ><br>
+            <input type="text" name="firstname" placeholder = "firstname" value ="<?php  if (isset($_SESSION['firstname'])) echo $_SESSION['firstname'];?>" ><br>
+            <input type="text" name="lastname" placeholder = "lastname" value ="<?php  if (isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?>" ><br>
+            <input type="text" name="user_email" placeholder = "useremail" value ="<?php if (isset($_SESSION['user_email'])) echo $_SESSION['user_email'];?>"><br>
             <label for="country">Country</label><br>
             <select id="country" name="country">
                 <option value="south_africa">South Africa</option>
@@ -58,11 +82,9 @@ if (isset($_POST['update']))
                     <option value="witbank">WITBANK</option>
                     <option value="cape_town">CAPE TOWN</option>
             </select><br>
-            <label for="about">About Me</label><br>
-                <textarea name="about_me" placeholder="Write something.." value ="<?php  if (isset($_SESSION['about_me'])) echo $_SESSION['about_me'];?>" style="height:200px"></textarea><br>
             <button type="submit" name="update">UPDATE</button><br>
         </form>
-        <script type = "text/javascript" src ="useredit.js">
-        </script>
+        <!-- <script type = "text/javascript" src ="useredit.js"> -->
+        <!-- </script> -->
     </body>
 </html>

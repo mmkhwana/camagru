@@ -1,5 +1,6 @@
 <?php
 require_once "config/database.php";
+session_start();
 ?>
 <html>
     <head>
@@ -11,8 +12,14 @@ require_once "config/database.php";
 <header>
     <div class = "navbar">
         <h1 class="active" href = "main.php">CAMAGRU</h1>
-        <!-- <a href = "userprofile.php">Edit Profile</a>        -->
-        <!-- <a href = "signout.php">Sign Out</a> -->
+        <?php
+            if (isset($_SESSION['user_name']) && isset($_SESSION['user_id']) && isset($_SESSION['user_email']))
+            {
+                echo "<a href = 'main.php'>My timeline</a>";
+                echo "<a href = 'userprofile.php'>Edit Profile</a>";       
+                echo "<a href = 'signout.php'>Sign Out</a>";
+            }
+        ?>
         <a href = "signup.php">Sign in</a>
     </div>
 </header>
@@ -37,7 +44,6 @@ require_once "config/database.php";
     }else{ 
         foreach ($stmt1 as $row) {
             echo    "<div class = 'gallery'>";
-            echo    "<div class = 'desc'>caption</div>";
             echo    "<img src='".$row['img_dir']."' alt='image' width = '300px' height = '300px'>";
             echo    "</div>";
             

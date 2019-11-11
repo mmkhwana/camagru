@@ -38,7 +38,6 @@ session_start();
                         $_SESSION['lastname'] = $value["lastname"];
                         $_SESSION['country'] = $value["country"];
                         $_SESSION['city'] = $value["city"];
-                        $_SESSION['about_me'] = $value["about_me"];
                         header("Location: main.php");
                     }
                     else {
@@ -67,8 +66,8 @@ session_start();
         }
         ?>
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method = "post">
-            <input type="text" name="user_email" placeholder = "email" require><br>
-            <input type="password" name="user_pwd" placeholder = "password" require><br>
+            <input type="text" name="user_email" placeholder = "email"  title="Insert correct email" required><br>
+            <input type="password" name="user_pwd" placeholder = "password" required><br>
             <button type="submit" name="signin-submit">SIGNIN</button><br>
             <a href="forgetpassword.php">forget password</a>
         </form>

@@ -3,7 +3,6 @@ require 'header.php';
 require 'config/database.php';
     if (isset($_POST['Password-submit']))
     {
-        echo "check";
         require 'config/setup.php';
         include "config/database.php";
         $usermail = $_POST['user_email'];
@@ -45,12 +44,15 @@ require 'config/database.php';
                 $stmt->bindValue(':user_email', $usermail);
                 $stmt->execute();
                 $value = $stmt->fetch(PDO::FETCH_ASSOC);
+                $verify = 0;
                 if ($value == false)
                 {
                     echo "Error";
                 }
                 else{
+                    
                     $userpwd = $value['user_pwd'];
+                    $value['verify_confi'] = 0;
                     $hashed = password_hash($userpwd_new_pwd, PASSWORD_DEFAULT);
                     // $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
                     $stmt_1 = $conn->prepare("UPDATE `users` SET user_pwd = '$hashed' WHERE user_email = :user_email");
@@ -64,10 +66,6 @@ require 'config/database.php';
             }
             try{
                 $verifymail = rand();
-               // $hashed = password_hash($userpwd_new_pwd, PASSWORD_DEFAULT);
-                // $sql = "INSERT INTO `camagru`.`users` (`user_name`,`user_email`,`user_pwd`, `user_key`)
-                // VALUES ('".$username."', '".$usermail."', '".$hashed."', '".$verifymail."')";
-                // $query = $conn->query($sql);
                 $messege = "
                     Login with new passsword
                     http://localhost:8081/camagru/verify.php?email=".$usermail."&key=".$verifymail."
