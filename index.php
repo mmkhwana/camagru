@@ -18,9 +18,12 @@ session_start();
                 echo "<a href = 'main.php'>My timeline</a>";
                 echo "<a href = 'userprofile.php'>Edit Profile</a>";       
                 echo "<a href = 'signout.php'>Sign Out</a>";
+            }else
+            {
+                echo "<a href = 'signup.php'>Sign in</a>";
+
             }
         ?>
-        <a href = "signup.php">Sign in</a>
     </div>
 </header>
 <body>
@@ -45,6 +48,9 @@ session_start();
         foreach ($stmt1 as $row) {
             echo    "<div class = 'gallery'>";
             echo    "<img src='".$row['img_dir']."' alt='image' width = '300px' height = '300px'>";
+
+            echo    "<form action = like.php method = 'post'><div class = 'like_'><button type = 'submit' name = 'like'>like</button></div></form>";
+            echo    "<form action = comment.php method = 'post'><div class = 'comment_'><button type = 'submit' name = 'comment'>comment</button></div></form>";
             echo    "</div>";
             
         }
@@ -62,6 +68,6 @@ session_start();
         <li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
     </ul>
     </div>
-    </div>
-</body>   
+    </div> 
+</body>
 </html>

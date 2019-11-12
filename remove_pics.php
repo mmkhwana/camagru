@@ -1,12 +1,16 @@
 <?php
+session_start();
     if(isset($_POST['image']))
     {
-        $dir = "uploads/".$_POST['image'];
-
-        if (is_file($dir))
+        if (isset($_SESSION['user_name']))
         {
-            unlink($dir.$image);
-            echo "success";
+            $dir = "uploads/".$_POST['image'];
+
+            if (is_file($dir))
+            {
+                unlink($dir.$image);
+                echo "success";
+            }
         }
     }
 ?>

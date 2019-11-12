@@ -28,6 +28,7 @@ try{
         user_email      TINYTEXT NOT NULL,
         user_pwd        LONGTEXT NOT NULL,
         user_key        LONGTEXT NOT NULL,
+        receive_email   VARCHAR(10) DEFAULT 'Yes',
         verify          INT(11) DEFAULT 0,
         verify_conf     INT(11) DEFAULT 0
     )";

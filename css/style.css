@@ -4,6 +4,19 @@
   background-color:purple;
   overflow: auto;
 }
+.footer {
+  width: 100%;
+  background-color:purple;
+  color: white;
+  overflow: auto;
+}
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: block;
+}
 
 /* Navbar links */
 .navbar a {

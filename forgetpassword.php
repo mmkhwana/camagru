@@ -42,9 +42,9 @@ require 'config/database.php';
                 // $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
                 $stmt = $conn->prepare("SELECT `user_pwd` FROM `users` WHERE user_email = :user_email");
                 $stmt->bindValue(':user_email', $usermail);
+                // $stmt->bindvalue(':verify_conf', $verify);
                 $stmt->execute();
                 $value = $stmt->fetch(PDO::FETCH_ASSOC);
-                $verify = 0;
                 if ($value == false)
                 {
                     echo "Error";
@@ -52,7 +52,7 @@ require 'config/database.php';
                 else{
                     
                     $userpwd = $value['user_pwd'];
-                    $value['verify_confi'] = 0;
+                    $value['verify_conf'] = 0;
                     $hashed = password_hash($userpwd_new_pwd, PASSWORD_DEFAULT);
                     // $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
                     $stmt_1 = $conn->prepare("UPDATE `users` SET user_pwd = '$hashed' WHERE user_email = :user_email");

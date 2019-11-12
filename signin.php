@@ -38,6 +38,7 @@ session_start();
                         $_SESSION['lastname'] = $value["lastname"];
                         $_SESSION['country'] = $value["country"];
                         $_SESSION['city'] = $value["city"];
+                        $_SESSION['receive_email'] = $value["receive_email"];
                         header("Location: main.php");
                     }
                     else {

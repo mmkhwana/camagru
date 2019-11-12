@@ -15,16 +15,22 @@ if (isset($_POST['update']))
     $lastname   = $_POST['lastname'];
     $country    = $_POST['country'];
     $city       = $_POST['city']; 
-    $usermail = $_SESSION['user_email'];
+    $usermail = $_POST['user_email'];
+    $mailreciver = $_POST['receive_email'];
+    $user_id = $_SESSION['user_id'];
     try{
-        $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);       
-        $sql = $conn->prepare("UPDATE `camagru`.`users` SET `user_name` = '$username', firstname = '$firstname', lastname = '$lastname', country = '$country', city = '$city', about_me = '$about', user_mail =`$usermail`
-         WHERE user_email = :user_email");
+        $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);     
+        $sql = $conn->prepare("UPDATE `users` SET `user_name` = '$username', firstname = '$firstname', lastname = '$lastname', country = '$country', city = '$city', receive_email = '$mailreciver'ß
+        WHERE `user_mail` = :user_email");
+      /*  $sql = $conn->prepare("UPDATE `users` SET `user_name` = '$username', firstname = '$firstname', lastname = '$lastname', country = '$country',
+         city = '$city',receive_email = '$mailreciver', user_mail ='$usermail'
+         WHERE user_email = :user_email");*/
         $sql->bindParam(':user_email', $usermail);
         $sql->execute();
-       
         if (!$sql)
+        {
             print_r ($conn->errorInfo());
+        }
         else
         {
             // echo "executedd";
@@ -57,15 +63,14 @@ if (isset($_POST['update']))
     </header>
     <body>
         <h2>Edit Profile</h2>
-         
-         <label class="switch">
-            <form method = "post">
-                <h3>Turn on to get notification  <input type="checkbox" name = "check" value = "Yes"></h3>
-                <span class="slider round"></span>
-            </form>
-        </label>
+        <?php echo $_SESSION['receive_email']; ?> 
+        
         <h5><a href = "changepassword.php">change password</a></h5>
-        <form  method = "post">
+        <form action = "userprofile.php"  method = "post">
+            Receive Email Notification ?<br/>
+            Yes <input type="radio" name="receive_email" value="Yes"<? if ($_SESSION['receive_email'] == "Yes") echo " checked"; ?> <br>
+            No <input type="radio" name="receive_mail" value="No"<? if ($_SESSION['receive_email'] == "No") echo " checked"; ?><br>
+            Currently Set to: <?php echo $_SESSION['receive_email']; ?>  <br/>
             <input type="text" name="user_name" placeholder = "username" value ="<?php  if (isset($_SESSION['user_name'])) echo $_SESSION['user_name'];?>" ><br>
             <input type="text" name="firstname" placeholder = "firstname" value ="<?php  if (isset($_SESSION['firstname'])) echo $_SESSION['firstname'];?>" ><br>
             <input type="text" name="lastname" placeholder = "lastname" value ="<?php  if (isset($_SESSION['lastname'])) echo $_SESSION['lastname'];?>" ><br>
@@ -84,7 +89,10 @@ if (isset($_POST['update']))
             </select><br>
             <button type="submit" name="update">UPDATE</button><br>
         </form>
-        <!-- <script type = "text/javascript" src ="useredit.js"> -->
-        <!-- </script> -->
+<footer>
+    <div class="footer">
+    <p>&copy; 2019 camagru.com<p>
+    </div>
+</footer>  
     </body>
 </html>

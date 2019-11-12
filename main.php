@@ -68,7 +68,7 @@ echo "Welcome ".$_SESSION['user_name']. "<br/>";
 //                    session_start();
                     $img_dir = "uploads/";
                     $images = scandir($img_dir);
-    //                $images = preg_grep('~^'.$_SESSION['username'].'.*\.png$~', $images);
+                    $images = preg_grep('~^'.$_SESSION['user_name'].'.*\.png$~', $images);
                     $list = '<ul id = "list-side">';
                     foreach($images as $img) 	
                     { 
@@ -80,14 +80,6 @@ echo "Welcome ".$_SESSION['user_name']. "<br/>";
                         {				
                             $list.='<li id = "'.$img.'" class="li-img"><div class = "gallery">
                                         <img onmousedown="removeImage(event)" src=" '.$img_dir.$img.'" width="100" height="100" />
-                                            <form action = "like.php" method = "post">
-                                                <div class = "like_">
-                                                    <button type = "submit" name = "like">like</button>
-                                                </div>
-                                            </form>
-                                            <div class = "comment_ ">
-                                                <button type = "button" type = "submit" name = "comment">comment</button>
-                                            </div>
                                         </div>
                                     </li>';
                         } 
@@ -107,6 +99,11 @@ echo "Welcome ".$_SESSION['user_name']. "<br/>";
     </form> -->
         </div>
        
-        <script src = "camera.js"></script>        
+        <script src = "camera.js"></script> 
+        <footer>
+    <div class="footer">
+    <p>&copy; 2019 camagru.com<p>
+    </div>
+</footer>         
     </body>
 </html>
