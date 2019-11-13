@@ -6,9 +6,11 @@
 <html>
 <header>
         <link rel="stylesheet" type="text/css" href="css/gallery.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class = "navbar">
         <a href = "index.php">Gallery</a>
         <!-- <a href = "userprofile.php">Edit Profile</a> -->
+        "<a href = 'main.php'>My timeline</a>";
         <a href = "signout.php">Sign Out</a>
     </div>
     </header>
