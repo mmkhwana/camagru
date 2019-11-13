@@ -6,6 +6,7 @@
 }
 .footer {
   width: 100%;
+  text-align: center;
   background-color:purple;
   color: white;
   overflow: auto;
