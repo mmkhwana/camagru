@@ -8,15 +8,11 @@ var  chose = document.querySelector('#choose');
 var  cap = document.getElementById("capture");
 var previewImage = document.querySelector("#chosen-img");
 cap.addEventListener("click", function(){
-    if (stickerName.value != "none")
-    {
+  
         var ctx = pic.getContext("2d");
         ctx.drawImage(play,0,0, 400, 400);
         ctx.drawImage(previewImage,0,0, 400, 400);
         save();
-    }
-    else
-        alert("Please insert sticker");
 });
 chose.addEventListener('change', (event)=>{
     var reader = new FileReader;
@@ -36,7 +32,7 @@ function feed() {
     };
     navigator.mediaDevices.getUserMedia(constrains).then(stream => {
         play.srcObject = stream;
-    });
+    }).catch(e =>{});
 }
 
 function removeImage(event)
@@ -50,7 +46,7 @@ function removeImage(event)
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    if (this.responseText == "success"){
+                    if (this.responseText === "success"){
                         alert("Image Removed");
                     } 
                     else 
