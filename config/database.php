@@ -59,5 +59,49 @@ try{
         {
             echo  $sqll."<br>".$e->getMessage();
         }
+
+try{
+    //create table
+    $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+    $sqllike = "CREATE TABLE IF NOT EXISTS likes(
+            like_id         INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL
+            img_id          INT(11) NOT NULL,
+            liker_id        INT(11) NOT NULL,
+            date            datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            like_status     INT(11) NOT NULL
+                    
+        )";
+            // use exc() because no results are returned
+            $conn->exec($sqllike);
+                 
+             //echo "Table user created";
+            }
+        catch(PDOException $e)
+        {
+            echo  $sqllike."<br>".$e->getMessage();
+        }
+
+try{
+        //create table
+        $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+        $sqlcomment = "CREATE TABLE IF NOT EXISTS comments(
+            comments_id         INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL
+            img_id              INT(11) NOT NULL,
+            user_id             INT(11) NOT NULL,
+            comment             VARCHAR(300) NOT NULL,
+            comment_date        datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+                            
+            )";
+            // use exc() because no results are returned
+            $conn->exec($sqlcomment);
+                         
+            //echo "Table user created";
+    }
+
+catch(PDOException $e)
+                {
+                    echo  $sqlcomment."<br>".$e->getMessage();
+                }
+        
  //   $conn = null;           
 ?>
