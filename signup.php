@@ -54,10 +54,12 @@ include "config/database.php";
                      $query = $conn->query($sql);
                      $messege = "
                          Confirm Your Email
-                         http://localhost:8081/camagru/verify.php?email=".$email."&key=".$verifymail."
+                         http://localhost/camagru/verify.php?email=".$email."&key=".$verifymail."
                      ";
                      mail($email,"Camagru confirm email",$messege,"FROM Camagru");
-                     echo "Please check email to verify account";
+                    //  echo "Please check email to verify account";
+                     echo "<script language='javascript'>alert('Please check email to verify account');</script>";
+                     
                      }
                      catch(PDOException $e)
                      {

@@ -68,7 +68,7 @@ require 'config/database.php';
                 $verifymail = rand();
                 $messege = "
                     Login with new passsword
-                    http://localhost:8081/camagru/verify.php?email=".$usermail."&key=".$verifymail."
+                    http://localhost/camagru/verify.php?email=".$usermail."&key=".$verifymail."
                 ";
                 mail($usermail,"Camagru confirm email",$messege,"FROM Camagru");
                 echo "Please check email for new password verification";

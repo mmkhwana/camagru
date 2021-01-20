@@ -10,7 +10,7 @@ try {
     $conn->exec($dbase);
     // echo "Database created successfully<br>";
     }
-catch(PDOException $e)
+    catch(PDOException $e)
     {
         echo  $dbase."<br>".$e->getMessage();
         echo "Connection failed: " . $e->getMessage();
@@ -53,7 +53,7 @@ try{
          // use exc() because no results are returned
          $conn->exec($sqll);
          
-         //echo "Table user created";
+         //echo "Table user images";
         }
     catch(PDOException $e)
         {
@@ -63,29 +63,29 @@ try{
 try{
     //create table
     $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
-    $sqllike = "CREATE TABLE IF NOT EXISTS likes(
-            like_id         INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL
+    $sqll = "CREATE TABLE IF NOT EXISTS likes(
+            like_id         INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
             img_id          INT(11) NOT NULL,
             liker_id        INT(11) NOT NULL,
             date            datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             like_status     INT(11) NOT NULL
                     
         )";
-            // use exc() because no results are returned
-            $conn->exec($sqllike);
+        // use exc() because no results are returned
+        $conn->exec($sqll);
                  
-             //echo "Table user created";
-            }
+        //echo "Table likes created";
+        }
         catch(PDOException $e)
         {
-            echo  $sqllike."<br>".$e->getMessage();
+            echo  $sqll."<br>".$e->getMessage();
         }
 
 try{
         //create table
         $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
         $sqlcomment = "CREATE TABLE IF NOT EXISTS comments(
-            comments_id         INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL
+            comments_id         INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
             img_id              INT(11) NOT NULL,
             user_id             INT(11) NOT NULL,
             comment             VARCHAR(300) NOT NULL,
@@ -95,13 +95,97 @@ try{
             // use exc() because no results are returned
             $conn->exec($sqlcomment);
                          
-            //echo "Table user created";
+            //echo "Table comments created";
     }
+    catch(PDOException $e)
+    {
+        echo  $sqlcomment."<br>".$e->getMessage();
+    }
+    
+try{
+    $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+    $sql = "ALTER TABLE  users(
+            ADD UNIQUE 'user_name'                
+        )";
 
+    $conn->exec($sql);
+}
 catch(PDOException $e)
-                {
-                    echo  $sqlcomment."<br>".$e->getMessage();
-                }
-        
+{
+    echo  $sql."<br>".$e->getMessage();
+}
+try{
+    $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+    $sql = "ALTER TABLE  users(
+            ADD UNIQUE 'user_mail'                
+        )";
+
+    $conn->exec($sql);
+}
+catch(PDOException $e)
+{
+    echo  $sql."<br>".$e->getMessage();
+}
+try{
+    $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+    $sql = "ALTER TABLE  images(
+            ADD CONSTRAINT fk_images_user FOREIGN KEY user_id REFERENCES 'users' user_id ON DELETE CASCADE;                
+        )";
+
+    $conn->exec($sql);
+}
+catch(PDOException $e)
+{
+    echo  $sql."<br>".$e->getMessage();
+}
+try{
+    $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+    $sql = "ALTER TABLE  likes(
+            ADD CONSTRAINT fk_likes_images FOREIGN KEY img_id REFERENCES 'images' img_id  ON DELETE CASCADE;                
+        )";
+
+    $conn->exec($sql);
+}
+catch(PDOException $e)
+{
+    echo  $sql."<br>".$e->getMessage();
+}
+try{
+    $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+    $sql = "ALTER TABLE  likes(
+            ADD CONSTRAINT fk_likes_users FOREIGN KEY liker_id REFERENCES 'users' user_id  ON DELETE CASCADE;                
+        )";
+
+    $conn->exec($sql);
+}
+catch(PDOException $e)
+{
+    echo  $sql."<br>".$e->getMessage();
+}
+
+try{
+    $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+    $sql = "ALTER TABLE  comments(
+            ADD CONSTRAINT fk_comments_images FOREIGN KEY img_id REFERENCES 'images' img_id  ON DELETE CASCADE;                
+        )";
+
+    $conn->exec($sql);
+}
+catch(PDOException $e)
+{
+    echo  $sql."<br>".$e->getMessage();
+}
+try{
+    $conn = new PDO("mysql:host=$servername;dbname=camagru", $dbusername, $dbpassword);
+    $sql = "ALTER TABLE  comments(
+            ADD CONSTRAINT fk_comments_users FOREIGN KEY user_id REFERENCES 'users' user_id  ON DELETE CASCADE;                
+        )";
+
+    $conn->exec($sql);
+}
+catch(PDOException $e)
+{
+    echo  $sql."<br>".$e->getMessage();
+}
  //   $conn = null;           
 ?>

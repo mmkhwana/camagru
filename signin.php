@@ -16,15 +16,18 @@ session_start();
                echo "Error: Empty Fields not allowed";
             }
             else{
-                //$verify = 1;
-                $stmt = $conn->prepare("SELECT `*` FROM `users` WHERE user_email = :user_email");
+                $verify = '1';
+                $stmt = $conn->prepare("SELECT `user_id`,`user_name`,`user_email`,`firstname`,`lastname`,`country`,`city` FROM `users` WHERE user_email = :user_email");
                 $stmt->bindvalue(':user_email', $mailuser);
-                //$stmt->bindvalue(':verify_config', $verify);
+                $stmt->bindvalue(':verify', $verify);
                 $stmt->execute();
                 $value = $stmt->fetch(PDO::FETCH_ASSOC);
+                echo $value['user_name'];
                 if ($value == false)
                 {
                     echo "incorrect email/ Account not active";
+                    // echo $mailuser;
+
                 }
                 else{
                     $hashed = $value['user_pwd'];
@@ -46,24 +49,7 @@ session_start();
                     }
                 }
             }
-            // else{
-            //     $sql = "SELECT * FROM `users` WHERE user_email = '".$mailuser."';";
-            //     $res = $conn->query($sql);
-
-            //     if (mysqli_num_rows($res) > 0)
-            //     {
-            //         while ($row = mysqli_fetch_assoc($res)){
-            //             $hashed = $row['user_pwd'];
-            //             if (password_verify($password, $hashed))
-            //             {
-            //                 echo "YES";
-            //             }
-            //             else{
-            //                 echo "NO";
-            //             }
-            //         }
-            //     }
-            // }
+            
         }
         ?>
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method = "post">
