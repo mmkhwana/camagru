@@ -20,6 +20,7 @@ echo "Welcome ".$_SESSION['user_name']. "<br/>";
         <div class = "container">
             <div class = "main">
                 <div class = "div-sticker">
+                <h5>Add Sticker</h5>
                     <select name="stickers" id="stickers">
                         <option value="none">Default</option>
                         <option value="laugh.jpg">laugh _emoji</option>

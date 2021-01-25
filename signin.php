@@ -17,16 +17,14 @@ session_start();
             }
             else{
                 $verify = '1';
-                $stmt = $conn->prepare("SELECT `user_id`,`user_name`,`user_email`,`firstname`,`lastname`,`country`,`city` FROM `users` WHERE user_email = :user_email");
+                $stmt = $conn->prepare("SELECT `user_id`,`user_name`,`user_email`,`user_pwd`,`firstname`,`lastname`,`country`,`city`,`receive_email`  FROM `users` WHERE user_email = :user_email AND verify = :verify");
                 $stmt->bindvalue(':user_email', $mailuser);
                 $stmt->bindvalue(':verify', $verify);
                 $stmt->execute();
                 $value = $stmt->fetch(PDO::FETCH_ASSOC);
-                echo $value['user_name'];
                 if ($value == false)
                 {
                     echo "incorrect email/ Account not active";
-                    // echo $mailuser;
 
                 }
                 else{

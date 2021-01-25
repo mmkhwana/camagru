@@ -70,7 +70,6 @@ if (isset($_POST['update']))
     </header>
     <body>
         <h2>Edit Profile</h2>
-        <?php echo $_SESSION['receive_email']; ?> 
         <h5><a href = "changepassword.php">change password</a></h5>
         <form action = "userprofile.php"  method = "post">
            Receive Email Notification ?<br/>
